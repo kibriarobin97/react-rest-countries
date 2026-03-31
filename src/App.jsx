@@ -1,13 +1,19 @@
+import { Suspense } from "react";
+import "./App.css";
+import Countries from "./components/countries/countries";
 
-import './App.css'
+const countriesPromise = fetch(
+  "https://studies.cs.helsinki.fi/restcountries/api/all",
+).then((res) => res.json());
 
 function App() {
-
   return (
     <>
-      <h1>React world tour</h1>
+      <Suspense fallback={<h3>Loading.....</h3>}>
+        <Countries countriesPromise={countriesPromise}></Countries>
+      </Suspense>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
